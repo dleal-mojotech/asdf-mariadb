@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+obj=$(
+  curl "https://downloads.mariadb.org/rest-api/mariadb/$ASDF_INSTALL_VERSION" | \
+    jq -r '.release_data | .[].files[] | select(.os == "Linux")'
+)
+
+download_url=$( echo "${obj}" | jq -r .file_download_url )
+file_name=$( echo "${obj}" | jq -r .file_name )
+
+curl -Lo "$ASDF_DOWNLOAD_PATH/${file_name}" "${download_url}"
