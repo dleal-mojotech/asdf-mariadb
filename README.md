@@ -5,7 +5,7 @@ MariaDB plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 ## Install
 
 ```
-asdf plugin-add mariadb https://github.com/baysao/asdf-mariadb.git
+asdf plugin-add mariadb https://github.com/dleal-mojotech/asdf-mariadb.git
 ```
 
 ## Use
