@@ -1,3 +1,20 @@
 #!/usr/bin/env bash
-version=$(curl -s https://downloads.mariadb.org/mariadb/+releases/ | awk -F'/' '/href="\/mariadb\// {print $3}' | sort -n)
-echo $version
+
+major_minor=$(
+  curl -s https://downloads.mariadb.org/rest-api/mariadb | \
+    jq -r ".major_releases[].release_id" | \
+    tac
+)
+
+all_releases=""
+
+for v in ${major_minor[*]} ; do
+  all_releases="
+    ${all_releases} $(
+      curl -s https://downloads.mariadb.org/rest-api/mariadb/$v | \
+        jq -r ".releases[].release_id" | \
+        tac
+    )"
+done
+
+echo $all_releases
